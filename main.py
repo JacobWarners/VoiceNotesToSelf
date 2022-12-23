@@ -1,18 +1,22 @@
 
 from kivy.app import App
 from kivy.uix.button import Button
-from writeTospreadsheet import putDataToSpreadsheet
+from kivy.uix.gridlayout import GridLayout
+#from writeTospreadsheet import putDataToSpreadsheet
+#from voicething import recordAudioToFile
+recordButton=False
+
 class MainApp(App):
     def build(self):
-        button = Button(text='Record',
-                        size_hint=(.5, .5),
-                        pos_hint={'center_x': .5, 'center_y': .5})
-        button.bind(on_press=self.on_press_button)
-
-        return button
+        layout = GridLayout(cols=2)
+        layout.add_widget(Button(text='Hello 1', on_press=self.on_press_button))
+        layout.add_widget(Button(text='World 1',on_press=self.on_press_button2))
+        return layout
 
     def on_press_button(self, instance):
-        putDataToSpreadsheet(audioRecording='test2')
+        print("button")
+    def on_press_button2(self, instance):
+        print("other Button")
 
 if __name__ == '__main__':
     app = MainApp()
