@@ -2,22 +2,24 @@ import whisper
 import sounddevice as sd
 from scipy.io.wavfile import write
 from writeTospreadsheet import putDataToSpreadsheet
-def translateAudioFile(result):
+def translateAudioFile():
     model = whisper.load_model("tiny")
-  #  result = model.transcribe("./recording0.wav")
-    result = model.transcribe("./signal-2022-12-23-003115.aac")
+    result = model.transcribe("./recording0.wav")
+  #  result = model.transcribe("./signal-2022-12-23-003115.aac")
+    allWords = result["text"].split()
+    firstWord = allWords[0]
+
     print(result["text"])
-    return result
+    return result["text"], firstWord
 
 def recordAudioToFile():
-    result = None
     # import required libraries
 
     # Sampling frequency
     freq = 44100
 
     # Recording duration
-    duration = 0
+    duration = 5
 
     # Start recorder with the given values
     # of duration and sample frequency
@@ -31,7 +33,6 @@ def recordAudioToFile():
     # file with the given sampling frequency
     write("recording0.wav", freq, recording)
 
-    translateAudioFile(result)
-    putDataToSpreadsheet(audioRecording=str(result))
-recordAudioToFile()
+    result, firstWord = translateAudioFile()
+    putDataToSpreadsheet(audioRecording=str(result),firstWord=str(firstWord))
 

@@ -10,8 +10,8 @@ recordButton=False
 class MainApp(App):
     def build(self):
         layout = GridLayout(cols=2)
-        layout.add_widget(Button(text='Hello 1', on_press=self.on_press_button))
-        layout.add_widget(Button(text='World 1',on_press=self.on_press_button2))
+        layout.add_widget(Button(text='Record', on_press=self.on_press_button))
+        layout.add_widget(Button(text='Check Spreadsheet',on_press=self.on_press_button2))
         return layout
 
     def on_press_button(self, instance):
