@@ -3,7 +3,8 @@ from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 #from writeTospreadsheet import putDataToSpreadsheet
-from voicething import recordAudioToFile, translateAudioFile
+from voicething import recordAudioToFile
+from writeTospreadsheet import openSpreadsheet
 
 recordButton=False
 
@@ -17,7 +18,7 @@ class MainApp(App):
     def on_press_button(self, instance):
         recordAudioToFile()
     def on_press_button2(self, instance):
-        print("other Button")
+        openSpreadsheet()
 
 if __name__ == '__main__':
     app = MainApp()

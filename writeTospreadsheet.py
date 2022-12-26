@@ -1,3 +1,4 @@
+import subprocess, sys
 from datetime import datetime
 from openpyxl import load_workbook
 now = datetime.now()
@@ -18,3 +19,10 @@ def putDataToSpreadsheet(audioRecording, firstWord):
 
     wb.save(filename=myFileName)
     wb.close()
+
+def openSpreadsheet():
+    filename="./RecordedNotes.xlsx"
+    opener = "open" if sys.platform == "darwin" else "xdg-open"
+    subprocess.call([opener, filename])
+
+
