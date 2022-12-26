@@ -1,15 +1,37 @@
 import whisper
 import sounddevice as sd
 from scipy.io.wavfile import write
-
-model = whisper.load_model("tiny")
-result = model.transcribe("./signal-2022-12-23-003115.aac")
-print(result["text"])
+from writeTospreadsheet import putDataToSpreadsheet
+def translateAudioFile(result):
+    model = whisper.load_model("tiny")
+  #  result = model.transcribe("./recording0.wav")
+    result = model.transcribe("./signal-2022-12-23-003115.aac")
+    print(result["text"])
+    return result
 
 def recordAudioToFile():
-    fs = 44100  # Sample rate
-    seconds = 10  # Duration of recording
+    result = None
+    # import required libraries
 
-    myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
-    sd.wait()  # Wait until recording is finished
-    write('output.wav', fs, myrecording)  # Save as WAV file 
+    # Sampling frequency
+    freq = 44100
+
+    # Recording duration
+    duration = 0
+
+    # Start recorder with the given values
+    # of duration and sample frequency
+    recording = sd.rec(int(duration * freq),
+                    samplerate=freq, channels=2)
+
+    # Record audio for the given number of seconds
+    sd.wait()
+
+    # This will convert the NumPy array to an audio
+    # file with the given sampling frequency
+    write("recording0.wav", freq, recording)
+
+    translateAudioFile(result)
+    putDataToSpreadsheet(audioRecording=str(result))
+recordAudioToFile()
+
